@@ -9,62 +9,32 @@ Project details and design notes: [Gen‑Z Styled Image Captioner (Notion)](http
 ## Features
 
 - Accepts an image input and outputs a Gen‑Z style caption  
-- Emphasizes slang, brevity, and trendy tone  
-- Optionally allows “mood” or “tone” prompts (e.g. “funny”, “aesthetic”, “vibe”)  
+- Emphasizes slang, brevity, randomness and trendy tone  
 - Handles image features like brightness, objects, emotions to inform caption  
 
 ---
 
 ## Architecture & Tech Stack
 
-- Backend: Python with image processing + LLM caption generation  
-- Model: Vision‑language model (e.g. CLIP + prompt engineering or a multimodal LLM)  
-- API: Exposed via a web framework like FastAPI (or a serverless function)  
-- Frontend (optional): Simple web form or React component to upload & display caption  
-
+- Backend: Python with image processing and plain captioning using GPT2, fine tuned GPT-J LLM caption generation using 5-shot prompt
+- Model: Vision‑language model (GPT-2 Image captioner, 5 shot prompting to fine-tuned GPT-J)  
+- Frontend: [Streamlit app](https://gracealwan-genz-image-captioner-gen-z-image-captioner-08dumi.streamlit.app/)
 ---
 
 ## Usage
-
-### 1. Run the server
-```bash
-# install dependencies (example)
-pip install fastapi uvicorn pillow requests transformers
-```
-
-Start the API:
-```bash
-uvicorn main:app --reload
-```
-
-### 2. POST to the API
-```bash
-curl -X POST "http://localhost:8000/caption"   -H "Content-Type: application/json"   -d '{"image_url":"https://example.com/photo.jpg", "tone":"aesthetic"}'
-```
-
-### 3. Example response
-```json
-{
-  "caption": "sunlight hitting my skin, golden glow vibes"
-}
-```
-
-### 4. Frontend usage
-A small UI can allow users to upload or paste an image URL, select a tone, click “Generate,” and see the caption appear.
-
----
+[Streamlit app](https://gracealwan-genz-image-captioner-gen-z-image-captioner-08dumi.streamlit.app/)
 
 ## Dataset & Training
 
-- (If applicable) used an image-caption dataset (e.g. COCO, Flickr30k)  
-- Fine-tuned with style transfer / prompt tuning to infuse Gen‑Z slang  
-- May use pseudo-labeling or filters to enforce tone  
+- Used existing plain image caption model GPT-2
+- Fine-tuned GPT-J with scraped instagram captions of over 1000+ Gen-Z posts
+- Increased randomness as hyperaparameter for Gen-Z slang
 
 ---
 
 ## Limitations & Future Work
 
-- Style may lean stereotypical or repetitive  
+- Style may lean stereotypical or repetitive/over fit examples in fine tuning
 - Mislabels on out-of-distribution images  
 - Better multimodal models (e.g. GPT‑4V) could improve quality  
 - Add user controls (“less slang”, “longer caption”)  
@@ -74,7 +44,7 @@ A small UI can allow users to upload or paste an image URL, select a tone, click
 
 ## Why this Project
 
-The goal is to make content creation more fun and accessible. Many creators struggle to come up with trendy, catchy captions — this tool automates that in a style-forward way.
+Most ML image captioners simply describe the image and don't use the image contents to come up with stylized captions. This goal was to combine vision and langugae prompting to make content creation more fun and accessible. Many creators struggle to come up with trendy, catchy captions — this tool automates that in a style-forward way.
 
 ---
 
