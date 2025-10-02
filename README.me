@@ -1,0 +1,85 @@
+# Gen‑Z Styled Image Captioner
+
+This project is a web service that generates social-media‑style captions (Gen‑Z tone, slang, brevity) for images—designed to help creators get more engagement with fresh, trendy captions.
+
+Project details and design notes: [Gen‑Z Styled Image Captioner (Notion)](https://bejewled-dew-670.notion.site/Gen-Z-Styled-Image-Captioner-dbe9c5db1f5e4c0597623b45d122d2d5)
+
+---
+
+## Features
+
+- Accepts an image input and outputs a Gen‑Z style caption  
+- Emphasizes slang, brevity, and trendy tone  
+- Optionally allows “mood” or “tone” prompts (e.g. “funny”, “aesthetic”, “vibe”)  
+- Handles image features like brightness, objects, emotions to inform caption  
+
+---
+
+## Architecture & Tech Stack
+
+- Backend: Python with image processing + LLM caption generation  
+- Model: Vision‑language model (e.g. CLIP + prompt engineering or a multimodal LLM)  
+- API: Exposed via a web framework like FastAPI (or a serverless function)  
+- Frontend (optional): Simple web form or React component to upload & display caption  
+
+---
+
+## Usage
+
+### 1. Run the server
+```bash
+# install dependencies (example)
+pip install fastapi uvicorn pillow requests transformers
+```
+
+Start the API:
+```bash
+uvicorn main:app --reload
+```
+
+### 2. POST to the API
+```bash
+curl -X POST "http://localhost:8000/caption"   -H "Content-Type: application/json"   -d '{"image_url":"https://example.com/photo.jpg", "tone":"aesthetic"}'
+```
+
+### 3. Example response
+```json
+{
+  "caption": "sunlight hitting my skin, golden glow vibes"
+}
+```
+
+### 4. Frontend usage
+A small UI can allow users to upload or paste an image URL, select a tone, click “Generate,” and see the caption appear.
+
+---
+
+## Dataset & Training
+
+- (If applicable) used an image-caption dataset (e.g. COCO, Flickr30k)  
+- Fine-tuned with style transfer / prompt tuning to infuse Gen‑Z slang  
+- May use pseudo-labeling or filters to enforce tone  
+
+---
+
+## Limitations & Future Work
+
+- Style may lean stereotypical or repetitive  
+- Mislabels on out-of-distribution images  
+- Better multimodal models (e.g. GPT‑4V) could improve quality  
+- Add user controls (“less slang”, “longer caption”)  
+- UI gallery for caption suggestions and edits  
+
+---
+
+## Why this Project
+
+The goal is to make content creation more fun and accessible. Many creators struggle to come up with trendy, catchy captions — this tool automates that in a style-forward way.
+
+---
+
+## Collaborators
+
+- Christine Astoria Manegan  
+- Brennan Megregian  
+- Grace Alwan
